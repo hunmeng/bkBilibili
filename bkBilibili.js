@@ -4,7 +4,7 @@
 // @description  哔哩哔哩首页快捷拉黑，去广告，直播推广
 // @author       lkj
 // @namespace    lkj
-// @version      1.0.1
+// @version      1.0.2
 // @create       2024-05-06
 // @lastmodified 2024-05-06
 // @note         首次更新
