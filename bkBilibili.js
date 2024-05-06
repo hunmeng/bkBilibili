@@ -4,7 +4,7 @@
 // @description  哔哩哔哩首页快捷拉黑，去广告，直播推广
 // @author       lkj
 // @namespace    lkj
-// @version      1.0.3
+// @version      1.0.4
 // @create       2024-05-06
 // @lastmodified 2024-05-06
 // @note         首次更新
@@ -15,6 +15,8 @@
 // @grant        unsafeWindow
 // @compatible   chrome
 // @license      MIT
+// @downloadURL https://update.greasyfork.org/scripts/494197/bkBliBli.user.js
+// @updateURL https://update.greasyfork.org/scripts/494197/bkBliBli.meta.js
 // ==/UserScript==
 (async function() {
     'use strict';
@@ -41,15 +43,15 @@
     // 函数用于排序类名数组并返回字符串
     function sortClassNames(classList) {
         if (typeof classList === 'string') {
-            return classList.split(' ').sort().join(' ');
+            return classList;
         } else if (classList === undefined) {
             // 处理未定义的情况
-            console.warn('classList is undefined');
+            //console.warn('classList is undefined');
             return '';
         } else {
             // 处理其他非字符串情况
             console.error('Invalid classList:', classList);
-            return '';
+            return classList;
         }
     }
 
@@ -62,13 +64,11 @@
 
     function reEl(childNode){
         var classNames = sortClassNames(childNode.className);
-        //console.log("classNames=========",classNames)
         // 检查子节点的类名是否包含要删除的类名
-        if (classNamesToRemove.some(cn => classNames.includes(cn))) {
-            //console.log("classNames===ss======",classNames)
+        if (classNamesToRemove.some(cn => classNames == cn)) {
             childNode.remove();
             return false;
-        } else if (classNames.includes('feed-card')) { // 如果子节点的类名包含 'feed-card'
+        } else if (classNames == 'feed-card') { // 如果子节点的类名包含 'feed-card'
             // 获取 feed-card 的子节点
             var feedCardChildren = childNode.children;
             var isRe = false;
@@ -76,7 +76,7 @@
             // 函数用于检查子节点的类名是否包含要删除的类名
             function hasClassToRemove(child) {
                 var childNames = sortClassNames(child.className);
-                return classNamesToRemove.some(cn => childNames.includes(cn));
+                return classNamesToRemove.some(cn => classNames == cn);
             }
 
             // 遍历 feed-card 的子节点，检查是否包含要删除的类名
@@ -166,7 +166,6 @@
             // 检查每个变化是否是节点的添加
             mutation.addedNodes.forEach(function(addedNode) {
                 //处理广告/推广等视频推广
-                //console.log("addedNode",addedNode)
                 if(reEl(addedNode)){
                     // 如果添加的节点是你想要的视频条目元素，则执行相应的操作
                     if (addedNode.querySelectorAll && addedNode.querySelectorAll('.bili-video-card__info--bottom').length > 0) {
@@ -174,7 +173,6 @@
                         var newVideoItems = addedNode.querySelectorAll('.bili-video-card__info--bottom');
                         // 处理新增的视频条目
                         handleVideoItems(newVideoItems);
-
                     }
                 }
 
