@@ -4,7 +4,7 @@
 // @description  哔哩哔哩首页快捷拉黑，去广告，直播推广
 // @author       lkj
 // @namespace    lkj
-// @version      1.0.4
+// @version      1.0.5
 // @create       2024-05-06
 // @lastmodified 2024-05-06
 // @note         首次更新
@@ -76,7 +76,7 @@
             // 函数用于检查子节点的类名是否包含要删除的类名
             function hasClassToRemove(child) {
                 var childNames = sortClassNames(child.className);
-                return classNamesToRemove.some(cn => classNames == cn);
+                return classNamesToRemove.some(cn => childNames == cn);
             }
 
             // 遍历 feed-card 的子节点，检查是否包含要删除的类名
