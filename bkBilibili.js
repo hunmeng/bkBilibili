@@ -4,7 +4,7 @@
 // @description  哔哩哔哩首页快捷拉黑，去广告，直播推广
 // @author       lkj
 // @namespace    lkj
-// @version      1.0.2
+// @version      1.0.3
 // @create       2024-05-06
 // @lastmodified 2024-05-06
 // @note         首次更新
@@ -62,10 +62,10 @@
 
     function reEl(childNode){
         var classNames = sortClassNames(childNode.className);
-        console.log("classNames=========",classNames)
+        //console.log("classNames=========",classNames)
         // 检查子节点的类名是否包含要删除的类名
         if (classNamesToRemove.some(cn => classNames.includes(cn))) {
-            console.log("classNames===ss======",classNames)
+            //console.log("classNames===ss======",classNames)
             childNode.remove();
             return false;
         } else if (classNames.includes('feed-card')) { // 如果子节点的类名包含 'feed-card'
@@ -166,7 +166,7 @@
             // 检查每个变化是否是节点的添加
             mutation.addedNodes.forEach(function(addedNode) {
                 //处理广告/推广等视频推广
-                console.log("addedNode",addedNode)
+                //console.log("addedNode",addedNode)
                 if(reEl(addedNode)){
                     // 如果添加的节点是你想要的视频条目元素，则执行相应的操作
                     if (addedNode.querySelectorAll && addedNode.querySelectorAll('.bili-video-card__info--bottom').length > 0) {
