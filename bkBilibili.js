@@ -4,7 +4,7 @@
 // @description  哔哩哔哩首页快捷拉黑，去广告，直播推广
 // @author       lkj
 // @namespace    lkj
-// @version      1.0.6
+// @version      1.0.7
 // @create       2024-05-06
 // @lastmodified 2024-05-16
 // @note         首次更新
@@ -24,7 +24,9 @@
     console.log('bili_jct=======',bili_jct)
     // 添加自定义CSS样式
     var style = document.createElement('style');
-    style.innerHTML = '.custom-link { margin-left: auto; }'; // 设置a标签的样式
+    style.type = 'text/css';
+    // 设置a标签的样式
+    style.innerHTML = '.custom-link { margin-left: auto; }.feed-card { margin-top: 0px !important; margin-bottom: 0px !important; }.bili-video-card{ margin-top: 5px !important; margin-bottom: 30px !important; }.bili-video-card.is-rcmd.enable-no-interest { margin-top: 5px !important; margin-bottom: 30px !important; }';
     document.head.appendChild(style);
 
     async function addToBlack(uid,act) {
@@ -180,16 +182,11 @@
         });
     });
 
+
     // 监听指定元素的变化
     setTimeout(function() {
         // 监听指定元素的变化
         var targetElement = document.querySelector('.container.is-version8');
-        // 创建一个 style 标签
-        var style = document.createElement('style');
-        style.type = 'text/css';
-        style.innerHTML = '.feed-card { margin-top: 0px !important; margin-bottom: 0px !important; }.bili-video-card{ margin-top: 5px !important; margin-bottom: 30px !important; }.bili-video-card.is-rcmd.enable-no-interest { margin-top: 5px !important; margin-bottom: 30px !important; }';
-        // 将 style 标签添加到 head 中
-        document.head.appendChild(style);
 
         if (!targetElement) {
             console.error('未找到指定元素');
@@ -210,6 +207,6 @@
         var initialVideoItems = targetElement.querySelectorAll('.bili-video-card__info--bottom');
         handleVideoItems(initialVideoItems);
 
-    }, 100); // 等待 0.1 秒
+    }, 150); // 等待 0.1 秒
 
 })();
