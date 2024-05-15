@@ -4,14 +4,14 @@
 // @description  哔哩哔哩首页快捷拉黑，去广告，直播推广
 // @author       lkj
 // @namespace    lkj
-// @version      1.0.7
+// @version      1.0.6
 // @create       2024-05-06
 // @lastmodified 2024-05-16
 // @note         首次更新
 // @charset      UTF-8
 // @match        *://www.bilibili.com/*
 // @match        https://api.bilibili.com/x/relation/modify
-// @run-at       document-start
+// @run-at       document-end
 // @grant        unsafeWindow
 // @compatible   chrome
 // @license      MIT
@@ -26,7 +26,7 @@
     var style = document.createElement('style');
     style.type = 'text/css';
     // 设置a标签的样式
-    style.innerHTML = '.custom-link { margin-left: auto; }.feed-card { margin-top: 0px !important; margin-bottom: 0px !important; }.bili-video-card{ margin-top: 5px !important; margin-bottom: 30px !important; }.bili-video-card.is-rcmd.enable-no-interest { margin-top: 5px !important; margin-bottom: 30px !important; }';
+    style.innerHTML = '.custom-link { margin-left: auto; }.feed-card { margin-top: 0px !important; margin-bottom: 0px !important; }.bili-video-card{ margin-top: 5px !important; margin-bottom: 20px !important; }.bili-video-card.is-rcmd.enable-no-interest { margin-top: 5px !important; margin-bottom: 20x !important; }';
     document.head.appendChild(style);
 
     async function addToBlack(uid,act) {
@@ -181,32 +181,26 @@
             });
         });
     });
-
-
     // 监听指定元素的变化
-    setTimeout(function() {
-        // 监听指定元素的变化
-        var targetElement = document.querySelector('.container.is-version8');
+    var targetElement = document.querySelector('.container.is-version8');
 
-        if (!targetElement) {
-            console.error('未找到指定元素');
-            return;
-        }
-        // 配置 MutationObserver，指定要观察的节点和要观察的变化类型
-        var config = {
-            childList: true // 观察子节点的添加或移除
-        };
+    if (!targetElement) {
+        console.error('未找到指定元素');
+        return;
+    }
+    // 配置 MutationObserver，指定要观察的节点和要观察的变化类型
+    var config = {
+        childList: true // 观察子节点的添加或移除
+    };
 
-        // 将观察器绑定到指定元素上，并开始观察
-        observer.observe(targetElement, config);
+    // 将观察器绑定到指定元素上，并开始观察
+    observer.observe(targetElement, config);
 
-        // 获取所有子节点，并使用箭头函数遍历处理每个子节点
-        Array.from(targetElement.children).forEach(childNode => reEl(childNode));
+    // 获取所有子节点，并使用箭头函数遍历处理每个子节点
+    Array.from(targetElement.children).forEach(childNode => reEl(childNode));
 
-        // 处理初始视频条目
-        var initialVideoItems = targetElement.querySelectorAll('.bili-video-card__info--bottom');
-        handleVideoItems(initialVideoItems);
-
-    }, 150); // 等待 0.1 秒
+    // 处理初始视频条目
+    var initialVideoItems = targetElement.querySelectorAll('.bili-video-card__info--bottom');
+    handleVideoItems(initialVideoItems);
 
 })();
