@@ -4,9 +4,9 @@
 // @description  哔哩哔哩首页快捷拉黑，去广告，直播推广
 // @author       lkj
 // @namespace    lkj
-// @version      1.0.5
+// @version      1.0.6
 // @create       2024-05-06
-// @lastmodified 2024-05-06
+// @lastmodified 2024-05-16
 // @note         首次更新
 // @charset      UTF-8
 // @match        *://www.bilibili.com/*
@@ -59,7 +59,8 @@
     var classNamesToRemove = [
         'bili-video-card is-rcmd',
         'floor-single-card',
-        'bili-live-card is-rcmd enable-no-interest'
+        'bili-live-card is-rcmd enable-no-interest',
+        'recommended-swipe grid-anchor'
     ];
 
     function reEl(childNode){
@@ -159,7 +160,6 @@
         });
     }
 
-
     // 创建一个 MutationObserver 实例，监听 DOM 变化
     var observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
@@ -184,6 +184,13 @@
     setTimeout(function() {
         // 监听指定元素的变化
         var targetElement = document.querySelector('.container.is-version8');
+        // 创建一个 style 标签
+        var style = document.createElement('style');
+        style.type = 'text/css';
+        style.innerHTML = '.feed-card { margin-top: 0px !important; margin-bottom: 0px !important; }.bili-video-card{ margin-top: 5px !important; margin-bottom: 30px !important; }.bili-video-card.is-rcmd.enable-no-interest { margin-top: 5px !important; margin-bottom: 30px !important; }';
+        // 将 style 标签添加到 head 中
+        document.head.appendChild(style);
+
         if (!targetElement) {
             console.error('未找到指定元素');
             return;
@@ -202,6 +209,7 @@
         // 处理初始视频条目
         var initialVideoItems = targetElement.querySelectorAll('.bili-video-card__info--bottom');
         handleVideoItems(initialVideoItems);
-    }, 300); // 等待 1 秒
+
+    }, 100); // 等待 0.1 秒
 
 })();
