@@ -4,14 +4,15 @@
 // @description  哔哩哔哩首页快捷拉黑，去广告，直播推广
 // @author       lkj
 // @namespace    lkj
-// @version      1.0.6
+// @version      1.0.7
 // @create       2024-05-06
-// @lastmodified 2024-05-16
-// @note         首次更新
+// @lastmodified 2025-01-09
+// @note         首次更新，拉黑功能覆盖到首页分区
 // @charset      UTF-8
-// @match        *://www.bilibili.com/*
+// @match        *://www.bilibili.com/
+// @match        *://www.bilibili.com/?*
+// @match        *://www.bilibili.com/v/*
 // @match        https://api.bilibili.com/x/relation/modify
-// @run-at       document-end
 // @grant        unsafeWindow
 // @compatible   chrome
 // @license      MIT
@@ -110,9 +111,9 @@
             // 查找带有类名为 "bili-video-card__info--owner" 的元素
             var ownerLink = item.querySelector('.bili-video-card__info--owner');
             var idtext = '';
-
             // 检查是否找到了链接元素
             if (ownerLink) {
+                debugger
                 // 获取链接的 href 属性值
                 var hrefValue = ownerLink.getAttribute('href');
                 // 使用正则表达式匹配数字ID
@@ -182,15 +183,16 @@
         });
     });
     // 监听指定元素的变化
-    var targetElement = document.querySelector('.container.is-version8');
+    var targetElement = document.querySelector('.container.is-version8') || document.querySelector('.channel-layout');
 
     if (!targetElement) {
         console.error('未找到指定元素');
         return;
     }
+
     // 配置 MutationObserver，指定要观察的节点和要观察的变化类型
     var config = {
-        childList: true // 观察子节点的添加或移除
+        childList: true, subtree: true
     };
 
     // 将观察器绑定到指定元素上，并开始观察
@@ -201,6 +203,10 @@
 
     // 处理初始视频条目
     var initialVideoItems = targetElement.querySelectorAll('.bili-video-card__info--bottom');
-    handleVideoItems(initialVideoItems);
+    //handleVideoItems(initialVideoItems);
+    setTimeout(() => {
+        handleVideoItems(initialVideoItems);
+    }, 300);
+    //test
 
 })();
