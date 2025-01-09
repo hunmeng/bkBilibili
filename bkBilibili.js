@@ -113,7 +113,6 @@
             var idtext = '';
             // 检查是否找到了链接元素
             if (ownerLink) {
-                debugger
                 // 获取链接的 href 属性值
                 var hrefValue = ownerLink.getAttribute('href');
                 // 使用正则表达式匹配数字ID
